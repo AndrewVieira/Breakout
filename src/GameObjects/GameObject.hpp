@@ -1,0 +1,4 @@
+#ifndef GAME_OBJECT_HPP
+#define GAME_OBJECT_HPP
+
+#endif // GAME_OBJECT_HPP

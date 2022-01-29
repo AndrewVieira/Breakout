@@ -1,0 +1,4 @@
+#ifndef PAUSE_STATE_HPP
+#define PAUSE_STATE_HPP
+
+#endif // PAUSE_STATE_HPP

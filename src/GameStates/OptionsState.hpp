@@ -1,0 +1,4 @@
+#ifndef OPTIONS_STATE_HPP
+#define OPTIONS_STATE_HPP
+
+#endif // OPTIONS_STATE_HPP
