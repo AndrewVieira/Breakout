@@ -70,6 +70,7 @@ void Breakout::mainLoop() {
 
         gFramework.beginRender();
         gGameStateMachine.renderStates();
+        gFramework.renderTexture(TEXTURE_BALL, nullptr, nullptr);
         gFramework.endRender();
     }
 }

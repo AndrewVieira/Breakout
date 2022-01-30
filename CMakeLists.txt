@@ -2,9 +2,11 @@ cmake_minimum_required(VERSION 3.16.3)
 project(Breakout VERSION 1.0)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
 find_package(SDL2 REQUIRED)
-include_directories(${SDL2_INCLUDE_DIRS})
+find_package(SDL2_image REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS})
 
 add_executable(Breakout
                 src/Main.cpp src/MessageQueue.cpp src/Framework.cpp src/GameStateMachine.cpp src/Breakout.cpp
@@ -16,4 +18,4 @@ add_executable(Breakout
                 src/GameObjects/GameObject.hpp src/GameObjects/Ball.hpp src/GameObjects/Block.hpp src/GameObjects/Button.hpp src/GameObjects/Image.hpp src/GameObjects/Paddle.hpp src/GameObjects/Text.hpp
                 src/GameStates/GameState.hpp src/GameStates/MenuState.hpp src/GameStates/PlayState.hpp src/GameStates/PauseState.hpp src/GameStates/OptionsState.hpp
                 )
-target_link_libraries(Breakout ${SDL2_LIBRARIES})
+target_link_libraries(Breakout ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})

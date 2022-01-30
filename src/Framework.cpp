@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <SDL2/SDL_image.h>
 #include "MessageQueue.hpp"
 #include "Framework.hpp"
 
@@ -26,12 +27,26 @@ bool Framework::startUp() {
     SDL_RenderClear(mRenderer);
     SDL_RenderPresent(mRenderer);
 
+    int imgFlags = IMG_INIT_PNG;
+    if (!(IMG_Init(imgFlags) & imgFlags)) {
+        printf("SDL_image could initialize! SDL_image Error: %s\n", IMG_GetError());
+        return false;
+    }
+
+    mTextures[TEXTURE_BALL].loadFromPath("../assets/Textures/Ball.png");
+    mTextures[TEXTURE_BLOCK].loadFromPath("../assets/Textures/Block.png");
+    mTextures[TEXTURE_PADDLE].loadFromPath("../assets/Textures/Paddle.png");
+
     return true;
 }
 
 void Framework::shutDown() {
+    for (int i = 0; i < TOTAL_TEXTURES; i++)
+        mTextures[i].free();
+
     SDL_DestroyRenderer(mRenderer);
     SDL_DestroyWindow(mWindow);
+    IMG_Quit();
     SDL_Quit();
 }
 
@@ -52,4 +67,13 @@ void Framework::beginRender() {
 
 void Framework::endRender() {
     SDL_RenderPresent(mRenderer);
+}
+
+SDL_Renderer* Framework::getRenderer() {
+    return mRenderer;
+}
+
+void Framework::renderTexture(TextureId id, const SDL_Rect* dst, const SDL_Rect* clip) {
+    if (id == TOTAL_TEXTURES) { return; }
+    mTextures[id].render(dst, clip);
 }
